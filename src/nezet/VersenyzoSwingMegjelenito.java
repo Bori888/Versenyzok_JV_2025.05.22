@@ -149,7 +149,7 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
         
             Versenyzo versenyzo = new Versenyzo(sor);
             
-            beallitSzoveg(versenyzo);
+            beallitSzoveg(versenyzo,2);
             
         } catch (IOException ex) {
             Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,14 +158,20 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
 
     private void mnuPrgFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrgFixActionPerformed
         Versenyzo versenyzo = new Versenyzo("RókaRudi", "rr@r.hu", Math.E, 21);
-        beallitSzoveg(versenyzo);
+        beallitSzoveg(versenyzo,2);
     }//GEN-LAST:event_mnuPrgFixActionPerformed
 
-    private void beallitSzoveg(Versenyzo versenyzo) {
-        int hanyzTizedesjegy = 2;
+    private void beallitSzoveg(Versenyzo versenyzo,int hanyTizedesjegy) {
         txtVersenyzoNev.setText(versenyzo.getNev());
         txtVersenyzoEmail.setText(versenyzo.getEmail());
-        txtVersenyzoAtlag.setText(String.format("%."+hanyzTizedesjegy+"f", versenyzo.getAtlag()));
+        txtVersenyzoAtlag.setText(String.format("%."+hanyTizedesjegy+"f", versenyzo.getAtlag()));
+        numVersenyzoElsoDb.setValue(versenyzo.getElsoDb());
+    }
+    private void beallitSzoveg(Versenyzo versenyzo) {
+        int hanyTizedesjegy =2;
+        txtVersenyzoNev.setText(versenyzo.getNev());
+        txtVersenyzoEmail.setText(versenyzo.getEmail());
+        txtVersenyzoAtlag.setText(String.format("%."+hanyTizedesjegy+"f", versenyzo.getAtlag()));
         numVersenyzoElsoDb.setValue(versenyzo.getElsoDb());
     }
 
