@@ -1,3 +1,4 @@
+
 package nezet;
 
 import java.io.IOException;
@@ -6,6 +7,7 @@ import java.nio.file.Path;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modell.Versenyzo;
+
 
 public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
 
@@ -146,72 +148,79 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
     private void mnuPrgBeFajlbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrgBeFajlbolActionPerformed
         try {
             String sor = Files.readString(Path.of("versenyzok.txt"));
-        
+
             Versenyzo versenyzo = new Versenyzo(sor);
-            
+
             beallitSzoveg(versenyzo);
-            
+
         } catch (IOException ex) {
             Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_mnuPrgBeFajlbolActionPerformed
 
     private void mnuPrgFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrgFixActionPerformed
+
         Versenyzo versenyzo = new Versenyzo("RókaRudi", "rr@r.hu", Math.E, 21);
         beallitSzoveg(versenyzo);
+
+        // Kinyomtatjuk a kerekített átlagot
+        
+        System.out.println("Kerekített átlag: "+versenyzo.getKerekitetAtlag(2));
+        System.out.println("Kerekített átlag2: " + versenyzo.getKerekit2Atlag(2)); // 2 tizedesjegy
+
     }//GEN-LAST:event_mnuPrgFixActionPerformed
 
     private void beallitSzoveg(Versenyzo versenyzo) {
         txtVersenyzoNev.setText(versenyzo.getNev());
         txtVersenyzoEmail.setText(versenyzo.getEmail());
-        txtVersenyzoAtlag.setText(atlagTizedesjeggyel( versenyzo.getAtlag()));
+        txtVersenyzoAtlag.setText(atlagTizedesjeggyel(versenyzo.getAtlag()));
         numVersenyzoElsoDb.setValue(versenyzo.getElsoDb());
-    }
-    private String atlagTizedesjeggyel(double atlag){
-        return atlagTizedesjeggyel(atlag,2);
-        
-    }
-    private String atlagTizedesjeggyel(double atlag,int hanyTizedesjegy){
-        String formazo = "%"+hanyTizedesjegy+".f";
-        return formazo.formatted(atlag);
-        
-    }
-    
+}
+
+    private String atlagTizedesjeggyel(double atlag) {
+    return atlagTizedesjeggyel(atlag, 2);
+
+}
+
+    private String atlagTizedesjeggyel(double atlag, int hanyTizedesjegy) {
+    return String.format("%." + hanyTizedesjegy + "f", atlag);
+}
+
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+    /* Set the Nimbus look and feel */
+    //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+    /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+     */
+    try {
+        for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            if ("Nimbus".equals(info.getName())) {
+                javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                break;
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new VersenyzoSwingMegjelenito().setVisible(true);
-            }
-        });
+    } catch (ClassNotFoundException ex) {
+        java.util.logging.Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (InstantiationException ex) {
+        java.util.logging.Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (IllegalAccessException ex) {
+        java.util.logging.Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        java.util.logging.Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
     }
+    //</editor-fold>
+
+    /* Create and display the form */
+    java.awt.EventQueue.invokeLater(new Runnable() {
+        public void run() {
+            new VersenyzoSwingMegjelenito().setVisible(true);
+        }
+    });
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

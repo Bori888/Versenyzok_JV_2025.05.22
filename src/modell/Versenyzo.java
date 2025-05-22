@@ -1,6 +1,10 @@
 package modell;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Versenyzo {
+
     private String nev;
     private String email;
     private double atlag;
@@ -32,11 +36,17 @@ public class Versenyzo {
     public double getAtlag() {
         return atlag;
     }
-    public double getKerekitetAtlag(int tizedesjegyek) {
-    double szorzat = Math.pow(10, tizedesjegyek);  
-    return Math.round(atlag * szorzat) / szorzat;  
-}
 
+    public double getKerekitetAtlag(int tizedesjegyek) {
+        int szorzo = (int) Math.pow(10, tizedesjegyek);
+        return (int) (atlag * szorzo) / (double) szorzo;
+    }
+
+    public double getKerekit2Atlag(int tizedesjegyek) {
+        BigDecimal bigDecimalAtlag = new BigDecimal(atlag);  // Átalakítjuk a double-t BigDecimal-lé
+        bigDecimalAtlag = bigDecimalAtlag.setScale(tizedesjegyek, RoundingMode.HALF_UP);  // Kerekítés a kívánt tizedesjegyre
+        return bigDecimalAtlag.doubleValue();  // Visszaadjuk a double értéket
+    }
 
     public int getElsoDb() {
         return elsoDb;
@@ -46,6 +56,5 @@ public class Versenyzo {
     public String toString() {
         return "Versenyzo{" + "nev=" + nev + ", email=" + email + ", atlag=" + atlag + ", elsoDb=" + elsoDb + '}';
     }
-    
-    
+
 }
