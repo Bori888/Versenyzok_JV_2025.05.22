@@ -33,6 +33,8 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
         txtVersenyzoAtlag = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         numVersenyzoElsoDb = new javax.swing.JSpinner();
+        jPanel2 = new javax.swing.JPanel();
+        cbbVersenyzokNeve = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuPrg = new javax.swing.JMenu();
         mnuPrgBeFajlbol = new javax.swing.JMenuItem();
@@ -102,6 +104,31 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Nevezett versenyzők"));
+
+        cbbVersenyzokNeve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbVersenyzokNeveActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cbbVersenyzokNeve, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cbbVersenyzokNeve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(23, Short.MAX_VALUE))
+        );
+
         mnuPrg.setText("Program");
 
         mnuPrgBeFajlbol.setText("Betöltés fájlból");
@@ -130,13 +157,19 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -147,9 +180,10 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
 
     private void mnuPrgBeFajlbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrgBeFajlbolActionPerformed
         try {
-            String sor = Files.readString(Path.of("versenyzok.txt"));
+            String fajlTartalma = Files.readString(Path.of("versenyzok.txt"));
+            String[] sorok = fajlTartalma.split("\r\n");
 
-            Versenyzo versenyzo = new Versenyzo(sor);
+            Versenyzo versenyzo = new Versenyzo(sorok[0]);
 
             beallitSzoveg(versenyzo);
 
@@ -162,19 +196,22 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
 
         Versenyzo versenyzo = new Versenyzo("RókaRudi", "rr@r.hu", Math.E, 21);
         beallitSzoveg(versenyzo);
-
-        // Kinyomtatjuk a kerekített átlagot
         
         System.out.println("Kerekített átlag: "+versenyzo.getKerekitetAtlag(2));
-        System.out.println("Kerekített átlag2: " + versenyzo.getKerekit2Atlag(2)); // 2 tizedesjegy
+        System.out.println("Kerekített átlag2: " + versenyzo.getKerekit2Atlag(2)); 
 
     }//GEN-LAST:event_mnuPrgFixActionPerformed
+
+    private void cbbVersenyzokNeveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbVersenyzokNeveActionPerformed
+        
+    }//GEN-LAST:event_cbbVersenyzokNeveActionPerformed
 
     private void beallitSzoveg(Versenyzo versenyzo) {
         txtVersenyzoNev.setText(versenyzo.getNev());
         txtVersenyzoEmail.setText(versenyzo.getEmail());
         txtVersenyzoAtlag.setText(atlagTizedesjeggyel(versenyzo.getAtlag()));
         numVersenyzoElsoDb.setValue(versenyzo.getElsoDb());
+        
 }
 
     private String atlagTizedesjeggyel(double atlag) {
@@ -223,12 +260,14 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbbVersenyzokNeve;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JMenu mnuPrg;
     private javax.swing.JMenuItem mnuPrgBeFajlbol;
     private javax.swing.JMenuItem mnuPrgFix;

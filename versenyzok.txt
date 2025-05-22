@@ -1,1 +1,3 @@
 Pál p@a.hu 3.14 2
+Ede e@a.hu 2.21 0
+Éva e@e.hu 5.0 4
