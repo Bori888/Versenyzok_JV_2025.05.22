@@ -149,7 +149,7 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
         
             Versenyzo versenyzo = new Versenyzo(sor);
             
-            beallitSzoveg(versenyzo,2);
+            beallitSzoveg(versenyzo);
             
         } catch (IOException ex) {
             Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(Level.SEVERE, null, ex);
@@ -158,22 +158,25 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
 
     private void mnuPrgFixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrgFixActionPerformed
         Versenyzo versenyzo = new Versenyzo("RókaRudi", "rr@r.hu", Math.E, 21);
-        beallitSzoveg(versenyzo,2);
+        beallitSzoveg(versenyzo);
     }//GEN-LAST:event_mnuPrgFixActionPerformed
 
-    private void beallitSzoveg(Versenyzo versenyzo,int hanyTizedesjegy) {
-        txtVersenyzoNev.setText(versenyzo.getNev());
-        txtVersenyzoEmail.setText(versenyzo.getEmail());
-        txtVersenyzoAtlag.setText(String.format("%."+hanyTizedesjegy+"f", versenyzo.getAtlag()));
-        numVersenyzoElsoDb.setValue(versenyzo.getElsoDb());
-    }
     private void beallitSzoveg(Versenyzo versenyzo) {
-        int hanyTizedesjegy =2;
         txtVersenyzoNev.setText(versenyzo.getNev());
         txtVersenyzoEmail.setText(versenyzo.getEmail());
-        txtVersenyzoAtlag.setText(String.format("%."+hanyTizedesjegy+"f", versenyzo.getAtlag()));
+        txtVersenyzoAtlag.setText(atlagTizedesjeggyel( versenyzo.getAtlag()));
         numVersenyzoElsoDb.setValue(versenyzo.getElsoDb());
     }
+    private String atlagTizedesjeggyel(double atlag){
+        return atlagTizedesjeggyel(atlag,2);
+        
+    }
+    private String atlagTizedesjeggyel(double atlag,int hanyTizedesjegy){
+        String formazo = "%"+hanyTizedesjegy+".f";
+        return formazo.formatted(atlag);
+        
+    }
+    
 
     /**
      * @param args the command line arguments

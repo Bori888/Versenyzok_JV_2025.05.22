@@ -32,6 +32,11 @@ public class Versenyzo {
     public double getAtlag() {
         return atlag;
     }
+    public double getKerekitetAtlag(int tizedesjegyek) {
+    double szorzat = Math.pow(10, tizedesjegyek);  
+    return Math.round(atlag * szorzat) / szorzat;  
+}
+
 
     public int getElsoDb() {
         return elsoDb;
