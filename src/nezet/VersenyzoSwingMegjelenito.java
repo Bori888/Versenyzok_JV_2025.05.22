@@ -4,16 +4,20 @@ package nezet;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import modell.Versenyzo;
 
 
 public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
-private  Versenyzo[] versenyzok;
+//private  Versenyzo[] versenyzok;           ----tömb
+    private  List <Versenyzo> versenyzok;   //---lista
     public VersenyzoSwingMegjelenito() {
         initComponents();
-        versenyzok =new Versenyzo[3];
+        //versenyzok =new Versenyzo[3];      ---tömb
+        versenyzok =new ArrayList<>();      //--lista nem kell megadni a hosszát
     }
 
     /**
@@ -182,18 +186,24 @@ private  Versenyzo[] versenyzok;
     private void mnuPrgBeFajlbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrgBeFajlbolActionPerformed
         try {
             
-            String fajlTartalma = Files.readString(Path.of("versenyzok.txt"));
-            String[] sorok = fajlTartalma.split("\r\n");
+            //String fajlTartalma = Files.readString(Path.of("versenyzok.txt"));
+            //            String[] sorok = fajlTartalma.split("\r\n");
 
-            for (int i = 0; i < sorok.length; i++) {
-                
-                String sor = sorok[i];
+            List <String> sorok = Files.readAllLines(Path.of("versenyzok.txt"));
+
+//          for (int i = 0; i < sorok.lenght(); i++) {
+            for (int i = 0; i < sorok.size(); i++) {
+                //String sor = sorok[i];
+                String sor = sorok.get(i);
                 Versenyzo versenyzo = new Versenyzo(sor);
-                versenyzok[i]=versenyzo;
+                //versenyzok[i]=versenyzo;                              ----tömb
+                versenyzok.add(versenyzo);                             //---lista a listának fügvényei vannak ezeket kell használni
+
                 cbbVersenyzokNeve.addItem(versenyzo.getNev());
                 
             }
-            beallitSzoveg(versenyzok[0]);
+            //beallitSzoveg(versenyzok[0]);                      ------tomb
+            beallitSzoveg(versenyzok.get(0));                         //---lista
 
         } catch (IOException ex) {
             Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(Level.SEVERE, null, ex);
