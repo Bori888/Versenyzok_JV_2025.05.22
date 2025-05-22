@@ -10,9 +10,10 @@ import modell.Versenyzo;
 
 
 public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
-
+private  Versenyzo[] versenyzok;
     public VersenyzoSwingMegjelenito() {
         initComponents();
+        versenyzok =new Versenyzo[3];
     }
 
     /**
@@ -180,12 +181,19 @@ public class VersenyzoSwingMegjelenito extends javax.swing.JFrame {
 
     private void mnuPrgBeFajlbolActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrgBeFajlbolActionPerformed
         try {
+            
             String fajlTartalma = Files.readString(Path.of("versenyzok.txt"));
             String[] sorok = fajlTartalma.split("\r\n");
 
-            Versenyzo versenyzo = new Versenyzo(sorok[0]);
-
-            beallitSzoveg(versenyzo);
+            for (int i = 0; i < sorok.length; i++) {
+                
+                String sor = sorok[i];
+                Versenyzo versenyzo = new Versenyzo(sor);
+                versenyzok[i]=versenyzo;
+                cbbVersenyzokNeve.addItem(versenyzo.getNev());
+                
+            }
+            beallitSzoveg(versenyzok[0]);
 
         } catch (IOException ex) {
             Logger.getLogger(VersenyzoSwingMegjelenito.class.getName()).log(Level.SEVERE, null, ex);
